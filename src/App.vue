@@ -22,6 +22,14 @@ import VPre from './components/practices/basic/vPre.vue'
 import VShow from './components/practices/basic/vShow.vue'
 import VText from './components/practices/basic/vText.vue'
 import Xss from './components/practices/basic/xss.vue'
+import RefExample from './components/practices/basic/refExample.vue'
+import ReactiveExample from './components/practices/basic/reactiveExample.vue'
+import ReactivewatchExample from './components/practices/basic/ReactivewatchExample.vue'
+import ComputedExample from './components/practices/basic/computedExample.vue'
+import WatchExample from './components/practices/basic/watchExample.vue'
+import WatchEffectExample from './components/practices/basic/watchEffectExample.vue'
+import DeepWatchExample from './components/practices/basic/deepWatchExample.vue'
+import MultiSourceWatchExample from './components/practices/basic/multiSourceWatchExample.vue'
 import AboutView from './views/AboutView.vue'
 import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
 </script>
@@ -45,6 +53,14 @@ import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
   <!-- <VShow /> -->
   <!-- <VText /> -->
   <!-- <Xss /> -->
+  <!-- <RefExample /> -->
+  <!-- <ReactiveExample /> -->
+  <!-- <ReactivewatchExample /> -->
+  <!-- <ComputedExample /> -->
+  <!-- <WatchExample /> -->
+  <!-- <WatchEffectExample /> -->
+  <!-- <DeepWatchExample /> -->
+  <!-- <MultiSourceWatchExample /> -->
   <!-- <AboutView /> -->
   <WeatherMockup />
 
