@@ -6,11 +6,17 @@ script, template, style로 구성되어 있음
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import SampleOne from './components/practices/basic/SampleOne.vue'
+import SampleTwo from './components/practices/basic/SampleTwo.vue'
+import AboutView from './views/AboutView.vue'
+import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
 </script>
 
 <template>
-  <h1>Hello Skala-Vue</h1>
-  <SampleOne />
+  <!-- <h1>Hello Skala-Vue</h1> -->
+  <!-- <SampleOne /> -->
+  <!-- <SampleTwo /> -->
+  <!-- <AboutView /> -->
+  <WeatherMockup />
 
   <nav>
     <RouterLink to="/">Home</RouterLink>
