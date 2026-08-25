@@ -37,3 +37,7 @@ npm run dev
 npm run build
 ```
 # skala-vue
+## Hands on - Weather Mockup
+- 목업 데이터 추가
+- 조건부 렌더링에 else-if를 추가하여 3개의 조건으로 변경
+- 추가로 생성된 조건에 새로운 badge 색상 부여
