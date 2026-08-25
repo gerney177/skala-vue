@@ -7,6 +7,21 @@ script, template, style로 구성되어 있음
 import { RouterLink, RouterView } from 'vue-router'
 import SampleOne from './components/practices/basic/SampleOne.vue'
 import SampleTwo from './components/practices/basic/SampleTwo.vue'
+import EventModifier from './components/practices/basic/eventModifier.vue'
+import EventObject from './components/practices/basic/eventObject.vue'
+import VBind from './components/practices/basic/vBind.vue'
+import VBindExample from './components/practices/basic/vBind_example.vue'
+import VCloak from './components/practices/basic/vCloak.vue'
+import VElseIf from './components/practices/basic/vElseIf.vue'
+import VFor from './components/practices/basic/vFor.vue'
+import VHtml from './components/practices/basic/vHtml.vue'
+import VMemo from './components/practices/basic/vMemo.vue'
+import VOn from './components/practices/basic/vOn.vue'
+import VOnce from './components/practices/basic/vOnce.vue'
+import VPre from './components/practices/basic/vPre.vue'
+import VShow from './components/practices/basic/vShow.vue'
+import VText from './components/practices/basic/vText.vue'
+import Xss from './components/practices/basic/xss.vue'
 import AboutView from './views/AboutView.vue'
 import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
 </script>
@@ -15,6 +30,21 @@ import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
   <!-- <h1>Hello Skala-Vue</h1> -->
   <!-- <SampleOne /> -->
   <!-- <SampleTwo /> -->
+  <!-- <EventModifier /> -->
+  <!-- <EventObject /> -->
+  <!-- <VBind /> -->
+  <!-- <VBindExample /> -->
+  <!-- <VCloak /> -->
+  <!-- <VElseIf /> -->
+  <!-- <VFor /> -->
+  <!-- <VHtml /> -->
+  <!-- <VMemo /> -->
+  <!-- <VOn /> -->
+  <!-- <VOnce /> -->
+  <!-- <VPre /> -->
+  <!-- <VShow /> -->
+  <!-- <VText /> -->
+  <!-- <Xss /> -->
   <!-- <AboutView /> -->
   <WeatherMockup />
 
