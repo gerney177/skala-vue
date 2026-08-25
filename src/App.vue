@@ -32,6 +32,7 @@ import DeepWatchExample from './components/practices/basic/deepWatchExample.vue'
 import MultiSourceWatchExample from './components/practices/basic/multiSourceWatchExample.vue'
 import AboutView from './views/AboutView.vue'
 import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
+import WeatherComposition from './components/practices/handson/WeatherComposition.vue'
 </script>
 
 <template>
@@ -62,7 +63,8 @@ import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
   <!-- <DeepWatchExample /> -->
   <!-- <MultiSourceWatchExample /> -->
   <!-- <AboutView /> -->
-  <WeatherMockup />
+  <!-- <WeatherMockup /> -->
+  <WeatherComposition />
 
   <nav>
     <RouterLink to="/">Home</RouterLink>
