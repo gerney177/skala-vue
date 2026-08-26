@@ -4,7 +4,7 @@ script, template, style로 구성되어 있음
 
 <!-- main.js에서 호출되는 어플리케이션 루트 Vue 컴포넌트 -->
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import SampleOne from './components/practices/basic/SampleOne.vue'
 import SampleTwo from './components/practices/basic/SampleTwo.vue'
 import EventModifier from './components/practices/basic/EventModifier.vue'
@@ -34,6 +34,10 @@ import AboutView from './views/AboutView.vue'
 import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
 import WeatherComposition from './components/practices/handson/WeatherComposition.vue'
 import WeatherParent from './components/practices/handson/WeatherParent.vue'
+
+// Hands on 4: Weather Router - 요구사항 2: Navigation Bar용 현재 라우트 정보
+// (Catch-all/NotFoundView에서는 헤더/탭 내비게이션을 숨기기 위해 route.meta.hideChrome을 확인)
+const route = useRoute()
 </script>
 
 <template>
@@ -66,49 +70,59 @@ import WeatherParent from './components/practices/handson/WeatherParent.vue'
   <!-- <AboutView /> -->
   <!-- <WeatherMockup /> -->
   <!-- <WeatherComposition /> -->
-  <WeatherParent />
+  <!-- <WeatherParent /> -->
 
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
-  </nav>
+  <!-- Hands on 4: Weather Router - 요구사항 2: Navigation Bar(RouterLink) + 메인 콘텐츠 영역(RouterView) -->
+  <header v-if="!route.meta.hideChrome" class="app-header">
+    <h2>🌤️ 과제 4: 라우터적용</h2>
+    <nav class="tab-nav">
+      <RouterLink to="/">🏠 날씨 대시보드</RouterLink>
+      <RouterLink to="/about">ℹ️ 서비스 소개</RouterLink>
+      <RouterLink to="/favorites">⭐ 즐겨찾기</RouterLink>
+    </nav>
+  </header>
 
   <RouterView />
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
 .logo {
   display: block;
   margin: 0 auto 2rem;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
+/* Hands on 4: Weather Router - 헤더 + 탭 내비게이션 */
+.app-header {
+  max-width: 480px;
+  margin: 0 auto 1rem;
   text-align: center;
-  margin-top: 2rem;
 }
-/* vue_router는 현재 활성화된 라우트에 대해 router-link-exact-active 클래스를 자동으로 추가해줌 */
-nav a.router-link-exact-active {
+
+.app-header h2 {
+  margin-bottom: 0.75rem;
+}
+
+.tab-nav {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: #eee;
+}
+
+.tab-nav a {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* vue_router는 현재 활성화된 라우트에 router-link-active 클래스를 자동으로 추가해줌 */
+.tab-nav a.router-link-active {
+  background: #fff;
   color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 @media (min-width: 1024px) {
@@ -126,15 +140,6 @@ nav a:first-of-type {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
   }
 }
 </style>
