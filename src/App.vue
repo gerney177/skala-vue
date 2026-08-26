@@ -7,32 +7,33 @@ script, template, style로 구성되어 있음
 import { RouterLink, RouterView } from 'vue-router'
 import SampleOne from './components/practices/basic/SampleOne.vue'
 import SampleTwo from './components/practices/basic/SampleTwo.vue'
-import EventModifier from './components/practices/basic/eventModifier.vue'
-import EventObject from './components/practices/basic/eventObject.vue'
-import VBind from './components/practices/basic/vBind.vue'
-import VBindExample from './components/practices/basic/vBind_example.vue'
-import VCloak from './components/practices/basic/vCloak.vue'
-import VElseIf from './components/practices/basic/vElseIf.vue'
-import VFor from './components/practices/basic/vFor.vue'
-import VHtml from './components/practices/basic/vHtml.vue'
-import VMemo from './components/practices/basic/vMemo.vue'
-import VOn from './components/practices/basic/vOn.vue'
-import VOnce from './components/practices/basic/vOnce.vue'
-import VPre from './components/practices/basic/vPre.vue'
-import VShow from './components/practices/basic/vShow.vue'
-import VText from './components/practices/basic/vText.vue'
-import Xss from './components/practices/basic/xss.vue'
-import RefExample from './components/practices/basic/refExample.vue'
-import ReactiveExample from './components/practices/basic/reactiveExample.vue'
-import ReactivewatchExample from './components/practices/basic/ReactivewatchExample.vue'
-import ComputedExample from './components/practices/basic/computedExample.vue'
-import WatchExample from './components/practices/basic/watchExample.vue'
-import WatchEffectExample from './components/practices/basic/watchEffectExample.vue'
-import DeepWatchExample from './components/practices/basic/deepWatchExample.vue'
-import MultiSourceWatchExample from './components/practices/basic/multiSourceWatchExample.vue'
+import EventModifier from './components/practices/basic/EventModifier.vue'
+import EventObject from './components/practices/basic/EventObject.vue'
+import VBind from './components/practices/basic/VBind.vue'
+import VBindExample from './components/practices/basic/VBindExample.vue'
+import VCloak from './components/practices/basic/VCloak.vue'
+import VElseIf from './components/practices/basic/VElseIf.vue'
+import VFor from './components/practices/basic/VFor.vue'
+import VHtml from './components/practices/basic/VHtml.vue'
+import VMemo from './components/practices/basic/VMemo.vue'
+import VOn from './components/practices/basic/VOn.vue'
+import VOnce from './components/practices/basic/VOnce.vue'
+import VPre from './components/practices/basic/VPre.vue'
+import VShow from './components/practices/basic/VShow.vue'
+import VText from './components/practices/basic/VText.vue'
+import Xss from './components/practices/basic/Xss.vue'
+import RefExample from './components/practices/basic/RefExample.vue'
+import ReactiveExample from './components/practices/basic/ReactiveExample.vue'
+import ReactiveWatchExample from './components/practices/basic/ReactiveWatchExample.vue'
+import ComputedExample from './components/practices/basic/ComputedExample.vue'
+import WatchExample from './components/practices/basic/WatchExample.vue'
+import WatchEffectExample from './components/practices/basic/WatchEffectExample.vue'
+import DeepWatchExample from './components/practices/basic/DeepWatchExample.vue'
+import MultiSourceWatchExample from './components/practices/basic/MultiSourceWatchExample.vue'
 import AboutView from './views/AboutView.vue'
 import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
 import WeatherComposition from './components/practices/handson/WeatherComposition.vue'
+import WeatherParent from './components/practices/handson/WeatherParent.vue'
 </script>
 
 <template>
@@ -56,7 +57,7 @@ import WeatherComposition from './components/practices/handson/WeatherCompositio
   <!-- <Xss /> -->
   <!-- <RefExample /> -->
   <!-- <ReactiveExample /> -->
-  <!-- <ReactivewatchExample /> -->
+  <!-- <ReactiveWatchExample /> -->
   <!-- <ComputedExample /> -->
   <!-- <WatchExample /> -->
   <!-- <WatchEffectExample /> -->
@@ -64,7 +65,8 @@ import WeatherComposition from './components/practices/handson/WeatherCompositio
   <!-- <MultiSourceWatchExample /> -->
   <!-- <AboutView /> -->
   <!-- <WeatherMockup /> -->
-  <WeatherComposition />
+  <!-- <WeatherComposition /> -->
+  <WeatherParent />
 
   <nav>
     <RouterLink to="/">Home</RouterLink>
