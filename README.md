@@ -83,3 +83,16 @@ npm run build
 4. ipapi.co(OpenWeatherMap이 아닌 별도의 외부 API, 키 불필요)로 접속 위치를 감지해서 대시보드 상단에 배너로 표시 (요구사항 3: 기타 외부 API 추가)
 5. isLoading/에러 상태를 두어 API 키가 없거나(401) 활성화 전이거나 네트워크가 끊겼을 때도 화면이 깨지지 않고 안내 문구를 보여주도록 처리
 - fetch API와 달리 axios는 응답을 자동으로 JSON으로 파싱해주고, 4xx/5xx 에러가 나면 자동으로 reject되어 catch에서 한 번에 처리할 수 있다는 걸 체감했다. 또한 API 키를 코드에 직접 넣지 않고 .env(import.meta.env)로 분리해두면, 키가 유출될 걱정 없이 코드만 공유할 수 있다는 것도 알게 되었다.
+
+## Code Challenge - UI Library (Element Plus)
+1. 실습 1. 회원가입 Form & 인풋 제어: userForm(email, agree) 반응형 데이터 + handleRegister에서 이메일 형식/약관 동의 검증 후 ElMessage.error/warning/success로 안내. `<el-card>`/`<el-input>`/`<el-switch>`/`<el-button>` 사용
+2. 실습 2. 커머스 상품 수량 및 평점 시스템: productQuantity/productRate 반응형 데이터를 `<el-input-number>`/`<el-rate>`로 조작하고 실시간 요약 카드에 반영
+3. 실습 3. 시스템 피드백 & 프로그레스 인터랙션: ElMessageBox.confirm으로 삭제 여부 확인(성공/취소 각각 ElMessage) + setInterval로 20%씩 증가하는 `<el-progress>` 다운로드 시뮬레이션
+- 직접 만들면 CSS와 상태 관리 코드를 다 짜야 했을 이메일 검증 폼, 별점, 프로그레스 바 같은 걸 컴포넌트 태그 하나로 완성할 수 있다는 걸 체감했다. ElMessage/ElMessageBox처럼 window.alert()/confirm()을 대체하는 세련된 피드백 컴포넌트가 기본 제공된다는 것도 알게 되었다.
+
+## Hands on - Weather UI Library
+1. element-plus, @element-plus/icons-vue 설치 및 main.js에 전역 등록 (app.use(ElementPlus) + CSS import)
+2. BaseDashboardCard를 `<el-card>`로, SearchBar의 input을 `<el-input>`으로 교체 (props/emit 인터페이스는 그대로 유지해서 사용하는 쪽 코드는 수정 없이 재사용)
+3. WeatherCard의 상태 라벨을 `<el-tag>`로, 즐겨찾기/상세보기 버튼을 `<el-button>`으로, 온도 단위 토글을 `<el-switch>`로 교체
+4. 통신 중 카드 목록에 v-loading 디렉티브, 에러/위치 안내는 `<el-alert>`, 빈 상태(즐겨찾기 없음/검색 결과 없음)는 `<el-empty>`, 404 페이지는 `<el-result>`로 교체
+- 커스텀 CSS로 일일이 만들던 카드/버튼/빈 상태 UI를 라이브러리 컴포넌트로 바꾸니 코드량이 줄고 디자인이 통일된다는 걸 체감했다. 다만 UI 라이브러리를 붙이면 번들 크기가 확 늘어난다는 것도 확인했다(전체 import 기준 약 1MB) - 실무에서는 필요한 컴포넌트만 불러오는 자동 import 플러그인을 함께 쓰는 이유를 알게 되었다.

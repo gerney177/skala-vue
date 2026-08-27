@@ -4,6 +4,9 @@
   -> WeatherHomeView에 있던 "즐겨찾기 도시"와 "최근 선택한 도시" 영역을 별도 페이지로 분리했습니다.
      useWeatherBoard 컴포저블이 모듈 스코프 상태라, Home에서 즐겨찾기한 내용이
      페이지를 이동해도(재마운트되어도) 그대로 유지됩니다.
+
+  Hands on - Weather UI Library
+  빈 상태를 <el-empty>로, 돌아가기 링크를 el-button + RouterLink 조합으로 교체.
 -->
 <script setup>
 import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
@@ -20,13 +23,15 @@ const { favoriteWeatherList, recentSearches } = useWeatherBoard()
     </BaseDashboardCard>
 
     <BaseDashboardCard title="🕘 최근 선택한 도시">
-      <p v-if="recentSearches.length === 0" class="no-result">아직 선택한 도시가 없습니다.</p>
+      <el-empty v-if="recentSearches.length === 0" description="아직 선택한 도시가 없습니다." />
       <ol v-else>
         <li v-for="name in recentSearches" :key="name">{{ name }}</li>
       </ol>
     </BaseDashboardCard>
 
-    <RouterLink to="/" class="back-link">← 메인 대시보드로 돌아가기</RouterLink>
+    <RouterLink to="/" custom v-slot="{ navigate }">
+      <el-button class="back-link" type="primary" text @click="navigate">← 메인 대시보드로 돌아가기</el-button>
+    </RouterLink>
   </section>
 </template>
 
@@ -41,15 +46,8 @@ const { favoriteWeatherList, recentSearches } = useWeatherBoard()
   padding-left: 1.2rem;
 }
 
-.no-result {
-  color: #888;
-  text-align: center;
-  padding: 1rem 0;
-}
-
 .back-link {
   display: block;
-  text-align: center;
-  margin-top: 1rem;
+  margin: 1rem auto 0;
 }
 </style>

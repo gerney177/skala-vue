@@ -1,7 +1,8 @@
 <!--
-  Hands on 4: Weather Router - BaseDashboardCard
-  과제 3(components/practices/handson)에서 만든 컴포넌트를 그대로 가져왔습니다.
-  라우터 실습용 부품은 components/exercise/ 폴더에 격리해서 보관합니다.
+  Hands on - Weather UI Library
+  BaseDashboardCard의 직접 만든 border/padding 스타일을 Element Plus의 <el-card>로 교체.
+  title prop과 default slot이라는 외부 인터페이스는 그대로 유지해서,
+  이 컴포넌트를 쓰는 다른 화면들(WeatherHomeView 등)은 코드를 바꾸지 않아도 됩니다.
 -->
 <script setup>
 defineProps({
@@ -13,21 +14,14 @@ defineProps({
 </script>
 
 <template>
-  <section class="dashboard-card">
-    <h3 v-if="title">{{ title }}</h3>
+  <el-card class="dashboard-card" shadow="never">
+    <template v-if="title" #header>{{ title }}</template>
     <slot />
-  </section>
+  </el-card>
 </template>
 
 <style scoped>
 .dashboard-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
   margin-bottom: 1rem;
-}
-
-.dashboard-card h3 {
-  margin-top: 0;
 }
 </style>

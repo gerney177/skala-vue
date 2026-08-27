@@ -36,6 +36,9 @@ import WeatherComposition from './components/practices/handson/WeatherCompositio
 import WeatherParent from './components/practices/handson/WeatherParent.vue'
 import UnitToggler from './components/exercise/UnitToggler.vue'
 import StoreCounter from './components/practices/library/StoreCounter.vue'
+import SignupFormChallenge from './components/practices/library/SignupFormChallenge.vue'
+import ProductQuantityChallenge from './components/practices/library/ProductQuantityChallenge.vue'
+import SystemFeedbackChallenge from './components/practices/library/SystemFeedbackChallenge.vue'
 
 // Hands on 4: Weather Router - 요구사항 2: Navigation Bar용 현재 라우트 정보
 // (Catch-all/NotFoundView에서는 헤더/탭 내비게이션을 숨기기 위해 route.meta.hideChrome을 확인)
@@ -74,10 +77,13 @@ const route = useRoute()
   <!-- <WeatherComposition /> -->
   <!-- <WeatherParent /> -->
   <!-- <StoreCounter /> -->
+  <!-- <SignupFormChallenge /> -->
+  <!-- <ProductQuantityChallenge /> -->
+  <!-- <SystemFeedbackChallenge /> -->
 
   <!-- Hands on 4: Weather Router - 요구사항 2: Navigation Bar(RouterLink) + 메인 콘텐츠 영역(RouterView) -->
   <header v-if="!route.meta.hideChrome" class="app-header">
-    <h2>🌐 Weather Axios: 실시간 연동</h2>
+    <h2>🎨 Weather UI Library: Element Plus 적용</h2>
     <div class="toolbar">
       <nav class="tab-nav">
         <RouterLink to="/">🏠 날씨 대시보드</RouterLink>

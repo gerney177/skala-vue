@@ -12,10 +12,14 @@
     요구사항 1: OpenWeatherMap Current Weather API로 실제 날씨 데이터를 가져와 적용
       -> onMounted에서 fetchAllCurrentWeather() 호출 + "새로고침" 버튼으로 재호출
     요구사항 3: OpenWeatherMap이 아닌 별도의 외부 API(ipapi.co)로 접속 위치 감지해서 배너로 표시
+  + Hands on - Weather UI Library
+    위치 배너/에러 배너는 <el-alert>, 컨트롤 버튼은 <el-button>,
+    통신 중에는 목록 영역에 v-loading 디렉티브, 검색 결과 없음은 <el-empty>로 교체.
 -->
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { Refresh, Sort } from '@element-plus/icons-vue'
 import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
 import SearchBar from '../components/exercise/SearchBar.vue'
 import WeatherCard from '../components/exercise/WeatherCard.vue'
@@ -55,9 +59,15 @@ onMounted(() => {
 <template>
   <section class="weather-home">
     <!-- 요구사항 3: ipapi.co로 감지한 접속 위치 배너 -->
-    <p v-if="myLocation" class="location-hint">
+    <el-alert
+      v-if="myLocation"
+      class="location-hint"
+      type="info"
+      :closable="false"
+      show-icon
+    >
       📍 현재 접속 위치로 추정되는 곳: <strong>{{ myLocation.city }}, {{ myLocation.countryName }}</strong>
-    </p>
+    </el-alert>
 
     <BaseDashboardCard title="🔍 도시 검색">
       <SearchBar :search-query="searchQuery" @update-query="searchQuery = $event" />
@@ -65,28 +75,32 @@ onMounted(() => {
 
     <BaseDashboardCard title="📍 지역별 날씨 현황">
       <div class="controls">
-        <button type="button" @click="toggleSortOrder">
-          🔀 정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }}
-        </button>
-        <button type="button" :disabled="isLoadingWeather" @click="fetchAllCurrentWeather">
-          {{ isLoadingWeather ? '⏳ 불러오는 중...' : '🔄 실시간 날씨 새로고침' }}
-        </button>
+        <el-button :icon="Sort" @click="toggleSortOrder">
+          정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }}
+        </el-button>
+        <el-button type="primary" :icon="Refresh" :loading="isLoadingWeather" @click="fetchAllCurrentWeather">
+          실시간 날씨 새로고침
+        </el-button>
       </div>
 
-      <p v-if="weatherLoadError" class="load-error">⚠️ {{ weatherLoadError }}</p>
+      <el-alert v-if="weatherLoadError" class="load-error" type="error" :closable="false" show-icon>
+        {{ weatherLoadError }}
+      </el-alert>
 
-      <template v-if="!searchQuery || filteredWeatherList.length > 0">
-        <WeatherCard
-          v-for="city in sortedWeatherList"
-          :key="city.id"
-          :city="city"
-          :is-favorite="favoriteCityIds.includes(city.id)"
-          @select-card="selectCity"
-          @click-detail="goToDetail"
-          @toggle-favorite="toggleFavorite"
-        />
-      </template>
-      <p v-else class="no-result">검색 결과가 일치하는 도시가 없습니다.</p>
+      <div v-loading="isLoadingWeather">
+        <template v-if="!searchQuery || filteredWeatherList.length > 0">
+          <WeatherCard
+            v-for="city in sortedWeatherList"
+            :key="city.id"
+            :city="city"
+            :is-favorite="favoriteCityIds.includes(city.id)"
+            @select-card="selectCity"
+            @click-detail="goToDetail"
+            @toggle-favorite="toggleFavorite"
+          />
+        </template>
+        <el-empty v-else description="검색 결과가 일치하는 도시가 없습니다." />
+      </div>
     </BaseDashboardCard>
 
     <p class="favorites-hint">
@@ -94,9 +108,9 @@ onMounted(() => {
       <RouterLink to="/favorites">즐겨찾기 페이지에서 전체보기</RouterLink>
     </p>
 
-    <div class="status-bar">
+    <el-alert type="success" :closable="false" class="status-bar">
       {{ selectedCityInfo ? `${selectedCityInfo}이 선택되었습니다.` : '카드를 클릭하거나 검색해 보세요.' }}
-    </div>
+    </el-alert>
   </section>
 </template>
 
@@ -112,37 +126,14 @@ onMounted(() => {
   margin-bottom: 0.75rem;
 }
 
-.controls button {
+.controls .el-button {
   flex: 1;
-  padding: 0.4rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #f7f7f7;
-  cursor: pointer;
+  margin-left: 0;
 }
 
-.controls button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.location-hint {
-  text-align: center;
-  color: #444;
-  background: #eef4ff;
-  border-radius: 8px;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-}
-
+.location-hint,
 .load-error {
-  color: #b33;
-  background: #fdecea;
-  border-radius: 6px;
-  padding: 0.5rem 0.75rem;
   margin-bottom: 0.75rem;
-  font-size: 0.85rem;
 }
 
 .favorites-hint {
@@ -151,17 +142,8 @@ onMounted(() => {
   margin-bottom: 1rem;
 }
 
-.no-result {
-  color: #888;
-  text-align: center;
-  padding: 1rem 0;
-}
-
 .status-bar {
+  justify-content: center;
   text-align: center;
-  padding: 0.75rem;
-  border-radius: 8px;
-  background: #eafaf1;
-  color: #2e7d32;
 }
 </style>

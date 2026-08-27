@@ -1,8 +1,11 @@
 <!--
-  Hands on 4: Weather Router - SearchBar
-  과제 3(components/practices/handson)에서 만든 컴포넌트를 그대로 가져왔습니다.
+  Hands on - Weather UI Library
+  기본 <input>을 Element Plus <el-input>으로 교체 (검색 아이콘 + 지우기 버튼 내장).
+  props/emit 계약은 그대로라서 SearchBar를 쓰는 쪽(WeatherHomeView)은 수정할 필요가 없습니다.
 -->
 <script setup>
+import { Search } from '@element-plus/icons-vue'
+
 defineProps({
   searchQuery: {
     type: String,
@@ -15,22 +18,14 @@ defineEmits(['update-query'])
 
 <template>
   <div class="search-bar">
-    <input
-      id="citySearch4"
-      type="text"
+    <el-input
+      :model-value="searchQuery"
       placeholder="검색할 도시 이름 입력"
       aria-label="도시 검색"
-      :value="searchQuery"
-      @input="$emit('update-query', $event.target.value)"
+      clearable
+      :prefix-icon="Search"
+      @update:model-value="$emit('update-query', $event)"
     />
     <p>검색 중인 도시: {{ searchQuery }}</p>
   </div>
 </template>
-
-<style scoped>
-.search-bar input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.5rem;
-}
-</style>
