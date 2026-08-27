@@ -100,7 +100,7 @@ npm run build
 ## Code Challenge - ESLint / Prettier / env / build (Vite Build & Deployment)
 1. ESLint: eslint.config.js에 eqeqeq(===) 강제, no-console off 등 Custom Rules 추가 → 실제 코드에 남아있던 `== null` 루즈 비교 3곳(useWeatherBoard.js, WeatherDetailView.vue)과 v-for의 미사용 index 1곳을 npm run lint로 잡아내서 수정 (최종 0 errors, 34 warnings)
 2. Prettier: PrettierChallenge.vue에 정렬이 엉망인 코드(`const     myRegion    = \`Suwon\`  ;`)를 작성한 뒤 npm run format 실행 → 공백 정리 + 세미콜론 제거(semi:false) + 백틱은 보간 템플릿 리터럴이라 유지되는 것을 실제로 확인
-3. env: .env.staging / .env.production에 VITE_API_URL을 다르게 설정하고 build:staging / build:production 스크립트로 각각 빌드 → 터미널의 "building client environment for staging/production" 로그와 번들 안에 실제로 다른 URL 문자열이 주입된 것을 grep으로 검증
+3. env: .env.staging / .env.production에 VITE_API_URL을 다르게 설정하고 build:staging / build:production 스크립트로 각각 빌드 → 터미널의 "building client environment for staging/production" 로그와 번들 안에 실제로 다른 URL 문자열이 주입된 것을 grep으로 검증 (검증 완료 후에는 실제 앱이 쓰지 않는 연습용 파일이라 .env.staging/.env.production과 데모 컴포넌트(EnvChallenge.vue)는 정리해서 삭제함 - build:staging/production 스크립트는 향후 재현용으로 남겨둠)
 4. build: npm run build로 dist/ 생성 확인, 파일마다 해시가 붙는 것(WeatherDetailView-xxxx.js)과 .vue 확장자가 전부 사라진 순수 html/js/css만 남는 것을 확인
 - ESLint(문법 오류/버그)와 Prettier(줄바꿈/따옴표 등 스타일)의 역할이 명확히 분리되어 있고, 한쪽이 잡는 규칙을 다른 쪽에서 끄는(skipFormatting) 방식으로 두 도구가 충돌하지 않게 조율한다는 것을 알게 되었다. .env 파일은 이름 자체(.env.production 등)로 모드가 구분되고 --mode 옵션만 바꾸면 소스 수정 없이 다른 서버 주소로 빌드할 수 있다는 것도 실습으로 확인했다.
 
