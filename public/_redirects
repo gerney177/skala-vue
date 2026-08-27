@@ -1,0 +1,4 @@
+# Netlify - SPA 라우팅 지원
+# vue-router가 클라이언트에서 처리하는 경로(/about, /favorites, /weather/:cityId 등)를
+# 서버가 직접 요청받아도 항상 index.html을 내려주도록 함 (안 하면 새로고침 시 404)
+/*    /index.html   200

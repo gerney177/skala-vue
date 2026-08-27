@@ -28,9 +28,7 @@ const productRate = ref(4) // 별점 기본값 (별 4개)
       <span class="hint">{{ productRate }} 점</span>
     </div>
 
-    <el-card shadow="never" class="summary-card">
-      🟢 실시간 장부 요약: 선택 수량 {{ productQuantity }}개 / 내가 준 점수 {{ productRate }}점
-    </el-card>
+    <el-card shadow="never" class="summary-card"> 🟢 실시간 장부 요약: 선택 수량 {{ productQuantity }}개 / 내가 준 점수 {{ productRate }}점 </el-card>
   </el-card>
 </template>
 

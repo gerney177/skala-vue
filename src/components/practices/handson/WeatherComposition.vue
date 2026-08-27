@@ -47,21 +47,13 @@ const displayWeatherList = computed(() =>
 )
 
 // weatherList 중 searchQuery가 city.name에 포함된 항목만 반환
-const filteredWeatherList = computed(() =>
-  displayWeatherList.value.filter((city) => city.name.includes(searchQuery.value)),
-)
+const filteredWeatherList = computed(() => displayWeatherList.value.filter((city) => city.name.includes(searchQuery.value)))
 
 // (5-3 computed) 정렬까지 적용된 최종 리스트 - 원본을 건드리지 않도록 복사본을 정렬
-const sortedWeatherList = computed(() =>
-  [...filteredWeatherList.value].sort((a, b) =>
-    sortOrder.value === 'asc' ? a.temp - b.temp : b.temp - a.temp,
-  ),
-)
+const sortedWeatherList = computed(() => [...filteredWeatherList.value].sort((a, b) => (sortOrder.value === 'asc' ? a.temp - b.temp : b.temp - a.temp)))
 
 // (5-1 computed) 즐겨찾기한 도시만 모은 리스트
-const favoriteWeatherList = computed(() =>
-  displayWeatherList.value.filter((city) => favoriteCityIds.value.includes(city.id)),
-)
+const favoriteWeatherList = computed(() => displayWeatherList.value.filter((city) => favoriteCityIds.value.includes(city.id)))
 
 // (5-4 computed) 최근 선택한 도시 - 중복 제거 후 최근 5개, 최신순
 const recentSearches = computed(() => {
@@ -112,9 +104,7 @@ function showDetail(cityName, status) {
 
 // (5-1) 즐겨찾기 토글
 function toggleFavorite(city) {
-  favoriteCityIds.value = favoriteCityIds.value.includes(city.id)
-    ? favoriteCityIds.value.filter((id) => id !== city.id)
-    : [...favoriteCityIds.value, city.id]
+  favoriteCityIds.value = favoriteCityIds.value.includes(city.id) ? favoriteCityIds.value.filter((id) => id !== city.id) : [...favoriteCityIds.value, city.id]
 }
 
 // (5-2) 온도 단위 토글
@@ -134,13 +124,7 @@ function toggleSortOrder() {
 
     <div class="search-box">
       <label for="citySearch2">🔍 도시 검색</label>
-      <input
-        id="citySearch2"
-        type="text"
-        placeholder="검색할 도시 이름 입력"
-        :value="searchQuery"
-        @input="searchQuery = $event.target.value"
-      />
+      <input id="citySearch2" type="text" placeholder="검색할 도시 이름 입력" :value="searchQuery" @input="searchQuery = $event.target.value" />
       <p>검색 중인 도시: {{ searchQuery }}</p>
     </div>
 
@@ -149,9 +133,7 @@ function toggleSortOrder() {
 
       <div class="controls">
         <button type="button" @click="toggleTempUnit">🌡️ 단위 전환 (현재 °{{ tempUnit }})</button>
-        <button type="button" @click="toggleSortOrder">
-          🔀 정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }}
-        </button>
+        <button type="button" @click="toggleSortOrder">🔀 정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }}</button>
       </div>
 
       <!-- 요구사항 4: 검색어 유무 / 일치 여부에 따라 세 갈래로 분기 -->
@@ -193,13 +175,9 @@ function toggleSortOrder() {
 
     <div class="favorite-list">
       <h3>⭐ 즐겨찾기 도시</h3>
-      <p v-if="favoriteWeatherList.length === 0" class="no-result">
-        즐겨찾기한 도시가 없습니다. 카드의 ☆를 눌러보세요.
-      </p>
+      <p v-if="favoriteWeatherList.length === 0" class="no-result">즐겨찾기한 도시가 없습니다. 카드의 ☆를 눌러보세요.</p>
       <ul v-else>
-        <li v-for="city in favoriteWeatherList" :key="city.id">
-          {{ city.name }} · {{ city.displayTemp }}{{ city.unitLabel }} ({{ city.status }})
-        </li>
+        <li v-for="city in favoriteWeatherList" :key="city.id">{{ city.name }} · {{ city.displayTemp }}{{ city.unitLabel }} ({{ city.status }})</li>
       </ul>
     </div>
 

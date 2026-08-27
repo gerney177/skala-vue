@@ -39,6 +39,8 @@ import StoreCounter from './components/practices/library/StoreCounter.vue'
 import SignupFormChallenge from './components/practices/library/SignupFormChallenge.vue'
 import ProductQuantityChallenge from './components/practices/library/ProductQuantityChallenge.vue'
 import SystemFeedbackChallenge from './components/practices/library/SystemFeedbackChallenge.vue'
+import PrettierChallenge from './components/practices/library/PrettierChallenge.vue'
+import EnvChallenge from './components/practices/library/EnvChallenge.vue'
 
 // Hands on 4: Weather Router - 요구사항 2: Navigation Bar용 현재 라우트 정보
 // (Catch-all/NotFoundView에서는 헤더/탭 내비게이션을 숨기기 위해 route.meta.hideChrome을 확인)
@@ -80,6 +82,8 @@ const route = useRoute()
   <!-- <SignupFormChallenge /> -->
   <!-- <ProductQuantityChallenge /> -->
   <!-- <SystemFeedbackChallenge /> -->
+  <!-- <PrettierChallenge /> -->
+  <!-- <EnvChallenge /> -->
 
   <!-- Hands on 4: Weather Router - 요구사항 2: Navigation Bar(RouterLink) + 메인 콘텐츠 영역(RouterView) -->
   <header v-if="!route.meta.hideChrome" class="app-header">

@@ -19,14 +19,7 @@ defineEmits(['update-query'])
 
 <template>
   <div class="search-bar">
-    <input
-      id="citySearch3"
-      type="text"
-      placeholder="검색할 도시 이름 입력"
-      aria-label="도시 검색"
-      :value="searchQuery"
-      @input="$emit('update-query', $event.target.value)"
-    />
+    <input id="citySearch3" type="text" placeholder="검색할 도시 이름 입력" aria-label="도시 검색" :value="searchQuery" @input="$emit('update-query', $event.target.value)" />
     <p>검색 중인 도시: {{ searchQuery }}</p>
   </div>
 </template>

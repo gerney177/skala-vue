@@ -40,10 +40,7 @@ onMounted(async () => {
   loadError.value = ''
   try {
     // 요구사항 1 + 2: Current Weather API와 Forecast API를 동시에 호출
-    const [weather, forecastList] = await Promise.all([
-      fetchCurrentWeather(cityMeta.lat, cityMeta.lon),
-      fetchForecast(cityMeta.lat, cityMeta.lon),
-    ])
+    const [weather, forecastList] = await Promise.all([fetchCurrentWeather(cityMeta.lat, cityMeta.lon), fetchForecast(cityMeta.lat, cityMeta.lon)])
     cityDetail.value = { ...cityMeta, ...weather }
     forecast.value = forecastList
   } catch (error) {
@@ -57,7 +54,7 @@ onMounted(async () => {
 // 요구사항 3 예시 코드와 동일한 패턴 - 원본 데이터(섭씨/m/s)를 configStore 단위에 맞게 변환
 const displayTemp = computed(() => {
   const rawTemp = cityDetail.value?.temp
-  if (rawTemp == null) return null
+  if (typeof rawTemp !== 'number') return null
   if (configStore.unit === 'fahrenheit') {
     return Math.round((rawTemp * 9) / 5 + 32) // 화씨 변환 연산
   }
@@ -66,7 +63,7 @@ const displayTemp = computed(() => {
 
 const displayWindSpeed = computed(() => {
   const rawWindSpeed = cityDetail.value?.windSpeed
-  if (rawWindSpeed == null) return null
+  if (typeof rawWindSpeed !== 'number') return null
   if (configStore.windUnit === 'mph') {
     return (rawWindSpeed * 2.23694).toFixed(1) // m/s -> mph 변환 연산
   }
@@ -85,7 +82,9 @@ const displayWindSpeed = computed(() => {
         <template v-else-if="cityDetail">
           <p>📍 지정 지역: {{ cityDetail.region }}</p>
           <p>실시간 기온: {{ displayTemp }}{{ configStore.unitSymbol }}</p>
-          <p>기상 현황: <el-tag type="info">{{ cityDetail.status }}</el-tag></p>
+          <p>
+            기상 현황: <el-tag type="info">{{ cityDetail.status }}</el-tag>
+          </p>
           <p>대기 습도: {{ cityDetail.humidity }}%</p>
           <p>
             현재 풍속: {{ displayWindSpeed }}{{ configStore.windUnitLabel }}

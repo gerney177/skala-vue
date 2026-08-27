@@ -96,3 +96,17 @@ npm run build
 3. WeatherCard의 상태 라벨을 `<el-tag>`로, 즐겨찾기/상세보기 버튼을 `<el-button>`으로, 온도 단위 토글을 `<el-switch>`로 교체
 4. 통신 중 카드 목록에 v-loading 디렉티브, 에러/위치 안내는 `<el-alert>`, 빈 상태(즐겨찾기 없음/검색 결과 없음)는 `<el-empty>`, 404 페이지는 `<el-result>`로 교체
 - 커스텀 CSS로 일일이 만들던 카드/버튼/빈 상태 UI를 라이브러리 컴포넌트로 바꾸니 코드량이 줄고 디자인이 통일된다는 걸 체감했다. 다만 UI 라이브러리를 붙이면 번들 크기가 확 늘어난다는 것도 확인했다(전체 import 기준 약 1MB) - 실무에서는 필요한 컴포넌트만 불러오는 자동 import 플러그인을 함께 쓰는 이유를 알게 되었다.
+
+## Code Challenge - ESLint / Prettier / env / build (Vite Build & Deployment)
+1. ESLint: eslint.config.js에 eqeqeq(===) 강제, no-console off 등 Custom Rules 추가 → 실제 코드에 남아있던 `== null` 루즈 비교 3곳(useWeatherBoard.js, WeatherDetailView.vue)과 v-for의 미사용 index 1곳을 npm run lint로 잡아내서 수정 (최종 0 errors, 34 warnings)
+2. Prettier: PrettierChallenge.vue에 정렬이 엉망인 코드(`const     myRegion    = \`Suwon\`  ;`)를 작성한 뒤 npm run format 실행 → 공백 정리 + 세미콜론 제거(semi:false) + 백틱은 보간 템플릿 리터럴이라 유지되는 것을 실제로 확인
+3. env: .env.staging / .env.production에 VITE_API_URL을 다르게 설정하고 build:staging / build:production 스크립트로 각각 빌드 → 터미널의 "building client environment for staging/production" 로그와 번들 안에 실제로 다른 URL 문자열이 주입된 것을 grep으로 검증
+4. build: npm run build로 dist/ 생성 확인, 파일마다 해시가 붙는 것(WeatherDetailView-xxxx.js)과 .vue 확장자가 전부 사라진 순수 html/js/css만 남는 것을 확인
+- ESLint(문법 오류/버그)와 Prettier(줄바꿈/따옴표 등 스타일)의 역할이 명확히 분리되어 있고, 한쪽이 잡는 규칙을 다른 쪽에서 끄는(skipFormatting) 방식으로 두 도구가 충돌하지 않게 조율한다는 것을 알게 되었다. .env 파일은 이름 자체(.env.production 등)로 모드가 구분되고 --mode 옵션만 바꾸면 소스 수정 없이 다른 서버 주소로 빌드할 수 있다는 것도 실습으로 확인했다.
+
+## Hands on - Weather Deployment
+1. Source Code 품질관리: eslint.config.js Custom Rules 적용 후 npm run lint로 전체 점검, 실제로 있던 eqeqeq/no-unused-vars 에러 4건을 모두 수정해서 0 errors 상태로 만듦
+2. API 키(OpenWeatherMap)는 이미 .env(VITE_OPENWEATHER_API_KEY)로 분리되어 있었고, .gitignore에서 .env/.env.local만 제외하고 .env.staging/.env.production(시크릿 없는 공용 설정)은 커밋 대상으로 남기도록 정리
+3. npm run build로 최종 프로덕션 빌드 생성 (dist/, 1736 모듈, 해시 파일명)
+4. npm run preview로 dist/ 산출물을 정적 서버로 직접 띄워서 실시간 날씨/위치 감지/Element Plus UI가 개발 모드와 동일하게 동작하는 것까지 확인 (실제 배포 서버 업로드는 본인이 선택한 호스팅 방식에 따라 별도 진행 필요)
+- 개발 서버(npm run dev)와 빌드 산출물(dist/ + npm run preview)은 완전히 다른 실행 방식이라는 것, 그리고 dist/ 폴더 자체가 어떤 정적 호스팅 서비스에도 그대로 올릴 수 있는 완제품이라는 것을 확인했다.

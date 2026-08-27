@@ -18,14 +18,7 @@ defineEmits(['update-query'])
 
 <template>
   <div class="search-bar">
-    <el-input
-      :model-value="searchQuery"
-      placeholder="검색할 도시 이름 입력"
-      aria-label="도시 검색"
-      clearable
-      :prefix-icon="Search"
-      @update:model-value="$emit('update-query', $event)"
-    />
+    <el-input :model-value="searchQuery" placeholder="검색할 도시 이름 입력" aria-label="도시 검색" clearable :prefix-icon="Search" @update:model-value="$emit('update-query', $event)" />
     <p>검색 중인 도시: {{ searchQuery }}</p>
   </div>
 </template>
