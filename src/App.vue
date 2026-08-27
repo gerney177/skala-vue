@@ -34,6 +34,7 @@ import AboutView from './views/AboutView.vue'
 import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
 import WeatherComposition from './components/practices/handson/WeatherComposition.vue'
 import WeatherParent from './components/practices/handson/WeatherParent.vue'
+import UnitToggler from './components/exercise/UnitToggler.vue'
 
 // Hands on 4: Weather Router - 요구사항 2: Navigation Bar용 현재 라우트 정보
 // (Catch-all/NotFoundView에서는 헤더/탭 내비게이션을 숨기기 위해 route.meta.hideChrome을 확인)
@@ -74,23 +75,22 @@ const route = useRoute()
 
   <!-- Hands on 4: Weather Router - 요구사항 2: Navigation Bar(RouterLink) + 메인 콘텐츠 영역(RouterView) -->
   <header v-if="!route.meta.hideChrome" class="app-header">
-    <h2>🌤️ 과제 4: 라우터적용</h2>
-    <nav class="tab-nav">
-      <RouterLink to="/">🏠 날씨 대시보드</RouterLink>
-      <RouterLink to="/about">ℹ️ 서비스 소개</RouterLink>
-      <RouterLink to="/favorites">⭐ 즐겨찾기</RouterLink>
-    </nav>
+    <h2>🌈 종합실습 5: 스토어적용</h2>
+    <div class="toolbar">
+      <nav class="tab-nav">
+        <RouterLink to="/">🏠 날씨 대시보드</RouterLink>
+        <RouterLink to="/about">ℹ️ 서비스 소개</RouterLink>
+        <RouterLink to="/favorites">⭐ 즐겨찾기</RouterLink>
+      </nav>
+      <!-- 요구사항 2: Navigation Bar 옆에 UnitToggler 배치 -->
+      <UnitToggler />
+    </div>
   </header>
 
   <RouterView />
 </template>
 
 <style scoped>
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
 /* Hands on 4: Weather Router - 헤더 + 탭 내비게이션 */
 .app-header {
   max-width: 480px;
@@ -100,6 +100,14 @@ const route = useRoute()
 
 .app-header h2 {
   margin-bottom: 0.75rem;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .tab-nav {
@@ -123,23 +131,5 @@ const route = useRoute()
   background: #fff;
   color: var(--color-text);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
 }
 </style>

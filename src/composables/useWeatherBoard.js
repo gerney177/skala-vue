@@ -5,6 +5,7 @@
 // -> ref/computed를 "모듈 스코프"(함수 바깥)에 한 번만 만들어서 두 페이지가 같은 인스턴스를 공유하게 합니다.
 //    (ES 모듈은 최초 import 시 한 번만 평가되므로, 이 파일을 import하는 모든 곳이 동일한 상태를 봅니다)
 import { ref, computed, watch, watchEffect } from 'vue'
+import { useConfigStore } from '../stores/configStore.js'
 
 // 1일차 Weather Mockup의 weatherList와 동일한 형태(id/name/temp/status)
 const weatherList = ref([
@@ -16,15 +17,19 @@ const weatherList = ref([
 const searchQuery = ref('')
 const selectedCityInfo = ref(null)
 const favoriteCityIds = ref([])
-const tempUnit = ref('C')
 const sortOrder = ref('asc')
 const searchHistory = ref([])
+
+// Hands on 5: Weather Store - 온도 단위는 더 이상 로컬 ref가 아니라
+// Pinia configStore(unit/unitSymbol)를 기준으로 계산합니다.
+const configStore = useConfigStore()
 
 const displayWeatherList = computed(() =>
   weatherList.value.map((city) => ({
     ...city,
-    displayTemp: tempUnit.value === 'F' ? Math.round((city.temp * 9) / 5 + 32) : city.temp,
-    unitLabel: tempUnit.value === 'F' ? '°F' : '°C',
+    displayTemp:
+      configStore.unit === 'fahrenheit' ? Math.round((city.temp * 9) / 5 + 32) : city.temp,
+    unitLabel: configStore.unitSymbol,
   })),
 )
 
@@ -74,10 +79,6 @@ function toggleFavorite(city) {
     : [...favoriteCityIds.value, city.id]
 }
 
-function toggleTempUnit() {
-  tempUnit.value = tempUnit.value === 'C' ? 'F' : 'C'
-}
-
 function toggleSortOrder() {
   sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
 }
@@ -87,7 +88,6 @@ export function useWeatherBoard() {
     searchQuery,
     selectedCityInfo,
     favoriteCityIds,
-    tempUnit,
     sortOrder,
     searchHistory,
     filteredWeatherList,
@@ -96,7 +96,6 @@ export function useWeatherBoard() {
     recentSearches,
     selectCity,
     toggleFavorite,
-    toggleTempUnit,
     toggleSortOrder,
   }
 }
