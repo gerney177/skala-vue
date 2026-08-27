@@ -5,6 +5,9 @@
     - 상세보기 버튼 클릭 시 window.alert() 제거 -> Programmatic Navigation
       (router.push('/weather/' + id))
   -> 반응형 상태는 useWeatherBoard 컴포저블에서 가져와서 WeatherFavoritesView와 공유합니다.
+  + Hands on 5: Weather Store - 요구사항 3: 메인 날씨에 단위 설정 변경 적용
+    (온도 단위 토글 버튼은 App.vue의 전역 UnitToggler로 이동했고, 여기서는
+     useWeatherBoard가 내부적으로 configStore를 참조해 displayTemp/unitLabel을 계산해줍니다)
 -->
 <script setup>
 import { useRouter } from 'vue-router'
@@ -19,14 +22,12 @@ const {
   searchQuery,
   selectedCityInfo,
   favoriteCityIds,
-  tempUnit,
   sortOrder,
   filteredWeatherList,
   sortedWeatherList,
   favoriteWeatherList,
   selectCity,
   toggleFavorite,
-  toggleTempUnit,
   toggleSortOrder,
 } = useWeatherBoard()
 
@@ -44,7 +45,6 @@ function goToDetail(city) {
 
     <BaseDashboardCard title="📍 지역별 날씨 현황">
       <div class="controls">
-        <button type="button" @click="toggleTempUnit">🌡️ 단위 전환 (현재 °{{ tempUnit }})</button>
         <button type="button" @click="toggleSortOrder">
           🔀 정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }}
         </button>
