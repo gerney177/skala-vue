@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { validCityIds } from '../data/cityDetailMock.js'
+import { validCityIds } from '../data/cities.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

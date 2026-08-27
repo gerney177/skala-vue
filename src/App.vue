@@ -77,7 +77,7 @@ const route = useRoute()
 
   <!-- Hands on 4: Weather Router - 요구사항 2: Navigation Bar(RouterLink) + 메인 콘텐츠 영역(RouterView) -->
   <header v-if="!route.meta.hideChrome" class="app-header">
-    <h2>🌈 종합실습 5: 스토어적용</h2>
+    <h2>🌐 Weather Axios: 실시간 연동</h2>
     <div class="toolbar">
       <nav class="tab-nav">
         <RouterLink to="/">🏠 날씨 대시보드</RouterLink>
