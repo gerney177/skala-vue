@@ -75,3 +75,11 @@ npm run build
 1. stores/counter.js에 useCounterStore 작성 (state: count, getters: doubleCount, actions: increment)
 2. StoreCounter.vue에서 스토어를 import하고 인스턴스를 가져와 state/getter/action을 그대로 사용
 - defineStore로 만든 함수는 use+이름+Store 규칙만 지키면 어디서든 호출할 수 있고, 호출할 때마다 새 인스턴스가 아니라 항상 같은 전역 인스턴스를 돌려받는다는 것을 알 수 있었다.
+
+## Hands on - Weather Axios
+1. axios 설치 후 OpenWeatherMap API 키를 .env(VITE_OPENWEATHER_API_KEY)로 분리해서 관리 (.env는 .gitignore 처리, .env.example만 공유)
+2. Current Weather API로 서울/수원/부산의 실제 기온·날씨 상태를 가져와 기존 Mock 데이터를 대체 (메인 대시보드 + 상세 페이지 양쪽 모두 적용)
+3. OpenWeatherMap의 5 Day/3 Hour Forecast API를 추가로 호출해서 상세 페이지에 "다음 예보" 스트립 표시 (요구사항 2: API 추가로 기능 확장)
+4. ipapi.co(OpenWeatherMap이 아닌 별도의 외부 API, 키 불필요)로 접속 위치를 감지해서 대시보드 상단에 배너로 표시 (요구사항 3: 기타 외부 API 추가)
+5. isLoading/에러 상태를 두어 API 키가 없거나(401) 활성화 전이거나 네트워크가 끊겼을 때도 화면이 깨지지 않고 안내 문구를 보여주도록 처리
+- fetch API와 달리 axios는 응답을 자동으로 JSON으로 파싱해주고, 4xx/5xx 에러가 나면 자동으로 reject되어 catch에서 한 번에 처리할 수 있다는 걸 체감했다. 또한 API 키를 코드에 직접 넣지 않고 .env(import.meta.env)로 분리해두면, 키가 유출될 걱정 없이 코드만 공유할 수 있다는 것도 알게 되었다.

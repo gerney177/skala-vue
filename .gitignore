@@ -14,6 +14,11 @@ dist-ssr
 coverage
 *.local
 
+# Axios 실습 - OpenWeatherMap API 키 등 비밀 값 (git에 올리면 안 됨)
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

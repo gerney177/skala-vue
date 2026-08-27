@@ -22,7 +22,11 @@ defineEmits(['select-card', 'click-detail', 'toggle-favorite'])
   <div class="weather-card" @click="$emit('select-card', city)">
     <div class="card-info">
       <p class="city-name">{{ city.name }} ({{ city.status }})</p>
-      <p class="city-temp">현재 기온: {{ city.displayTemp }}{{ city.unitLabel }}</p>
+      <p class="city-temp">
+        현재 기온:
+        <span v-if="city.displayTemp == null">불러오는 중...</span>
+        <span v-else>{{ city.displayTemp }}{{ city.unitLabel }}</span>
+      </p>
     </div>
     <div class="card-actions">
       <button type="button" class="star-btn" @click.stop="$emit('toggle-favorite', city)">
