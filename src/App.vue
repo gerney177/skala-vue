@@ -35,6 +35,7 @@ import WeatherMockup from './components/practices/handson/WeatherMockup.vue'
 import WeatherComposition from './components/practices/handson/WeatherComposition.vue'
 import WeatherParent from './components/practices/handson/WeatherParent.vue'
 import UnitToggler from './components/exercise/UnitToggler.vue'
+import StoreCounter from './components/practices/library/StoreCounter.vue'
 
 // Hands on 4: Weather Router - 요구사항 2: Navigation Bar용 현재 라우트 정보
 // (Catch-all/NotFoundView에서는 헤더/탭 내비게이션을 숨기기 위해 route.meta.hideChrome을 확인)
@@ -72,6 +73,7 @@ const route = useRoute()
   <!-- <WeatherMockup /> -->
   <!-- <WeatherComposition /> -->
   <!-- <WeatherParent /> -->
+  <!-- <StoreCounter /> -->
 
   <!-- Hands on 4: Weather Router - 요구사항 2: Navigation Bar(RouterLink) + 메인 콘텐츠 영역(RouterView) -->
   <header v-if="!route.meta.hideChrome" class="app-header">
