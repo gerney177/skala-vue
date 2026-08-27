@@ -31,29 +31,16 @@ const configStore = useConfigStore()
 const displayWeatherList = computed(() =>
   weatherList.value.map((city) => ({
     ...city,
-    displayTemp:
-      city.temp == null
-        ? null
-        : configStore.unit === 'fahrenheit'
-          ? Math.round((city.temp * 9) / 5 + 32)
-          : city.temp,
+    displayTemp: typeof city.temp !== 'number' ? null : configStore.unit === 'fahrenheit' ? Math.round((city.temp * 9) / 5 + 32) : city.temp,
     unitLabel: configStore.unitSymbol,
   })),
 )
 
-const filteredWeatherList = computed(() =>
-  displayWeatherList.value.filter((city) => city.name.includes(searchQuery.value)),
-)
+const filteredWeatherList = computed(() => displayWeatherList.value.filter((city) => city.name.includes(searchQuery.value)))
 
-const sortedWeatherList = computed(() =>
-  [...filteredWeatherList.value].sort((a, b) =>
-    sortOrder.value === 'asc' ? (a.temp ?? 0) - (b.temp ?? 0) : (b.temp ?? 0) - (a.temp ?? 0),
-  ),
-)
+const sortedWeatherList = computed(() => [...filteredWeatherList.value].sort((a, b) => (sortOrder.value === 'asc' ? (a.temp ?? 0) - (b.temp ?? 0) : (b.temp ?? 0) - (a.temp ?? 0))))
 
-const favoriteWeatherList = computed(() =>
-  displayWeatherList.value.filter((city) => favoriteCityIds.value.includes(city.id)),
-)
+const favoriteWeatherList = computed(() => displayWeatherList.value.filter((city) => favoriteCityIds.value.includes(city.id)))
 
 const recentSearches = computed(() => {
   const unique = [...new Set(searchHistory.value)]
@@ -82,9 +69,7 @@ function selectCity(city) {
 }
 
 function toggleFavorite(city) {
-  favoriteCityIds.value = favoriteCityIds.value.includes(city.id)
-    ? favoriteCityIds.value.filter((id) => id !== city.id)
-    : [...favoriteCityIds.value, city.id]
+  favoriteCityIds.value = favoriteCityIds.value.includes(city.id) ? favoriteCityIds.value.filter((id) => id !== city.id) : [...favoriteCityIds.value, city.id]
 }
 
 function toggleSortOrder() {
@@ -95,8 +80,7 @@ function toggleSortOrder() {
 // (슬라이드 예제와 동일하게 isLoading -> try -> catch -> finally 순서로 구성)
 async function fetchAllCurrentWeather() {
   if (!hasApiKey()) {
-    weatherLoadError.value =
-      '.env 파일의 VITE_OPENWEATHER_API_KEY가 비어있습니다. OpenWeatherMap에서 발급받은 키를 넣고 dev 서버를 재시작하세요.'
+    weatherLoadError.value = '.env 파일의 VITE_OPENWEATHER_API_KEY가 비어있습니다. OpenWeatherMap에서 발급받은 키를 넣고 dev 서버를 재시작하세요.'
     return
   }
 
@@ -104,9 +88,7 @@ async function fetchAllCurrentWeather() {
   weatherLoadError.value = ''
   try {
     // axios.all과 같은 역할 - 여러 도시의 요청을 동시에 보내고 한 번에 기다림
-    const results = await Promise.all(
-      weatherList.value.map((city) => fetchCurrentWeather(city.lat, city.lon)),
-    )
+    const results = await Promise.all(weatherList.value.map((city) => fetchCurrentWeather(city.lat, city.lon)))
     weatherList.value = weatherList.value.map((city, index) => ({ ...city, ...results[index] }))
   } catch (error) {
     // 4xx, 5xx 에러나 네트워크 오프라인 시 자동으로 reject되어 catch 영역에서 처리

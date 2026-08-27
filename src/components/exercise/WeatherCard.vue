@@ -37,12 +37,7 @@ defineEmits(['select-card', 'click-detail', 'toggle-favorite'])
         </p>
       </div>
       <div class="card-actions">
-        <el-button
-          circle
-          :type="isFavorite ? 'warning' : 'default'"
-          :icon="isFavorite ? StarFilled : Star"
-          @click.stop="$emit('toggle-favorite', city)"
-        />
+        <el-button circle :type="isFavorite ? 'warning' : 'default'" :icon="isFavorite ? StarFilled : Star" @click.stop="$emit('toggle-favorite', city)" />
         <el-button size="small" @click.stop="$emit('click-detail', city)">상세보기</el-button>
       </div>
     </div>

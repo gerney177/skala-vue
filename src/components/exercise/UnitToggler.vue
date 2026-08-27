@@ -16,16 +16,8 @@ const configStore = useConfigStore()
 
 <template>
   <div class="unit-toggler">
-    <span class="unit-label">
-      날씨단위: {{ configStore.unit === 'fahrenheit' ? '화씨' : '섭씨' }}({{ configStore.unitSymbol }})
-    </span>
-    <el-switch
-      :model-value="configStore.unit === 'fahrenheit'"
-      inline-prompt
-      active-text="°F"
-      inactive-text="°C"
-      @change="configStore.toggleUnit"
-    />
+    <span class="unit-label"> 날씨단위: {{ configStore.unit === 'fahrenheit' ? '화씨' : '섭씨' }}({{ configStore.unitSymbol }}) </span>
+    <el-switch :model-value="configStore.unit === 'fahrenheit'" inline-prompt active-text="°F" inactive-text="°C" @change="configStore.toggleUnit" />
   </div>
 </template>
 

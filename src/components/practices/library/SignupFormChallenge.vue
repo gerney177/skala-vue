@@ -41,9 +41,7 @@ const handleRegister = () => {
       <span>개인정보 수집 및 필수 이용약관에 동의합니다.</span>
     </div>
 
-    <el-button type="success" style="width: 100%" @click="handleRegister">
-      🚀 회원가입하기
-    </el-button>
+    <el-button type="success" style="width: 100%" @click="handleRegister"> 🚀 회원가입하기 </el-button>
   </el-card>
 </template>
 

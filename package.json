@@ -6,7 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:staging": "vite build --mode staging",
+    "build:production": "vite build --mode production",
+    "preview": "vite preview",
+    "lint": "run-s lint:*",
+    "lint:oxlint": "oxlint . --fix",
+    "lint:eslint": "eslint . --fix --cache",
+    "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
@@ -17,7 +23,16 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@vitejs/plugin-vue": "^6.0.8",
+    "eslint": "^10.9.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-oxlint": "^1.80.0",
+    "eslint-plugin-vue": "^10.10.0",
+    "globals": "^17.11.0",
+    "npm-run-all2": "^9.0.3",
+    "oxlint": "^1.80.0",
+    "prettier": "^3.9.6",
     "vite": "^8.1.5",
     "vite-plugin-vue-devtools": "^8.1.5"
   },

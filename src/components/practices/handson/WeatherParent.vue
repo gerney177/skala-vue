@@ -48,21 +48,13 @@ const displayWeatherList = computed(() =>
 )
 
 // weatherList 중 searchQuery가 city.name에 포함된 항목만 반환
-const filteredWeatherList = computed(() =>
-  displayWeatherList.value.filter((city) => city.name.includes(searchQuery.value)),
-)
+const filteredWeatherList = computed(() => displayWeatherList.value.filter((city) => city.name.includes(searchQuery.value)))
 
 // 정렬까지 적용된 최종 리스트 - 원본을 건드리지 않도록 복사본을 정렬
-const sortedWeatherList = computed(() =>
-  [...filteredWeatherList.value].sort((a, b) =>
-    sortOrder.value === 'asc' ? a.temp - b.temp : b.temp - a.temp,
-  ),
-)
+const sortedWeatherList = computed(() => [...filteredWeatherList.value].sort((a, b) => (sortOrder.value === 'asc' ? a.temp - b.temp : b.temp - a.temp)))
 
 // 즐겨찾기한 도시만 모은 리스트
-const favoriteWeatherList = computed(() =>
-  displayWeatherList.value.filter((city) => favoriteCityIds.value.includes(city.id)),
-)
+const favoriteWeatherList = computed(() => displayWeatherList.value.filter((city) => favoriteCityIds.value.includes(city.id)))
 
 // 최근 선택한 도시 - 중복 제거 후 최근 5개, 최신순
 const recentSearches = computed(() => {
@@ -114,9 +106,7 @@ function showDetail(city) {
 
 // WeatherCard의 toggle-favorite 이벤트 핸들러
 function toggleFavorite(city) {
-  favoriteCityIds.value = favoriteCityIds.value.includes(city.id)
-    ? favoriteCityIds.value.filter((id) => id !== city.id)
-    : [...favoriteCityIds.value, city.id]
+  favoriteCityIds.value = favoriteCityIds.value.includes(city.id) ? favoriteCityIds.value.filter((id) => id !== city.id) : [...favoriteCityIds.value, city.id]
 }
 
 // 온도 단위 토글
@@ -143,9 +133,7 @@ function toggleSortOrder() {
     <BaseDashboardCard title="📍 지역별 날씨 현황">
       <div class="controls">
         <button type="button" @click="toggleTempUnit">🌡️ 단위 전환 (현재 °{{ tempUnit }})</button>
-        <button type="button" @click="toggleSortOrder">
-          🔀 정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }}
-        </button>
+        <button type="button" @click="toggleSortOrder">🔀 정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }}</button>
       </div>
 
       <!-- 검색어 유무 / 일치 여부에 따라 분기해서 표시 -->

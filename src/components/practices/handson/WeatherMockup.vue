@@ -62,7 +62,7 @@ function showDetail(cityName, status) {
           <p class="city-temp">현재 기온: {{ city.temp }}°C</p>
 
           <!-- TODO (요구사항 2): v-if="city.temp >= 25" / v-else 로 라벨 분기 -->
-          <span class="badge dead" v-if="city.temp >= 30">☠️ 죽음 (30도 이상)</span> 
+          <span class="badge dead" v-if="city.temp >= 30">☠️ 죽음 (30도 이상)</span>
           <span class="badge hot" v-else-if="city.temp >= 25 && city.temp < 30">🔥 더움 (25도 이상)</span>
           <span class="badge cool" v-else>🩵 선선함, 행복 (25도 미만)</span>
         </div>

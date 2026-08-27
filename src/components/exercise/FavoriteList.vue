@@ -19,9 +19,7 @@ defineProps({
   <div class="favorite-list">
     <el-empty v-if="favorites.length === 0" description="즐겨찾기한 도시가 없습니다. 대시보드 카드의 ☆를 눌러보세요." />
     <ul v-else>
-      <li v-for="city in favorites" :key="city.id">
-        {{ city.name }} · {{ city.displayTemp }}{{ city.unitLabel }} ({{ city.status }})
-      </li>
+      <li v-for="city in favorites" :key="city.id">{{ city.name }} · {{ city.displayTemp }}{{ city.unitLabel }} ({{ city.status }})</li>
     </ul>
   </div>
 </template>

@@ -59,13 +59,7 @@ onMounted(() => {
 <template>
   <section class="weather-home">
     <!-- 요구사항 3: ipapi.co로 감지한 접속 위치 배너 -->
-    <el-alert
-      v-if="myLocation"
-      class="location-hint"
-      type="info"
-      :closable="false"
-      show-icon
-    >
+    <el-alert v-if="myLocation" class="location-hint" type="info" :closable="false" show-icon>
       📍 현재 접속 위치로 추정되는 곳: <strong>{{ myLocation.city }}, {{ myLocation.countryName }}</strong>
     </el-alert>
 
@@ -75,12 +69,8 @@ onMounted(() => {
 
     <BaseDashboardCard title="📍 지역별 날씨 현황">
       <div class="controls">
-        <el-button :icon="Sort" @click="toggleSortOrder">
-          정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }}
-        </el-button>
-        <el-button type="primary" :icon="Refresh" :loading="isLoadingWeather" @click="fetchAllCurrentWeather">
-          실시간 날씨 새로고침
-        </el-button>
+        <el-button :icon="Sort" @click="toggleSortOrder"> 정렬: {{ sortOrder === 'asc' ? '기온 낮은순' : '기온 높은순' }} </el-button>
+        <el-button type="primary" :icon="Refresh" :loading="isLoadingWeather" @click="fetchAllCurrentWeather"> 실시간 날씨 새로고침 </el-button>
       </div>
 
       <el-alert v-if="weatherLoadError" class="load-error" type="error" :closable="false" show-icon>
