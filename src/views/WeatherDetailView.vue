@@ -13,6 +13,8 @@
   + Hands on - Weather Axios
     요구사항 1: 더 이상 Mock Data가 아니라 OpenWeatherMap Current Weather API로 실제 값을 가져옴
     요구사항 2: OpenWeatherMap의 5 Day/3 Hour Forecast API를 추가로 호출해 "다음 예보" 표시
+  + Hands on - Weather UI Library
+    카드/버튼/로딩/예보 태그를 Element Plus 컴포넌트로 교체.
 -->
 <script setup>
 import { ref, computed, onMounted } from 'vue'
@@ -74,39 +76,40 @@ const displayWindSpeed = computed(() => {
 
 <template>
   <section class="weather-detail">
-    <h3>📍 지역별 상세 기상 관측 정보</h3>
-
-    <p v-if="!cityMeta" class="no-result">'{{ route.params.cityId }}'에 해당하는 도시 정보를 찾을 수 없습니다.</p>
+    <el-empty v-if="!cityMeta" :description="`'${route.params.cityId}'에 해당하는 도시 정보를 찾을 수 없습니다.`" />
     <template v-else>
-      <p v-if="isLoading" class="no-result">⏳ 실시간 데이터를 불러오는 중...</p>
-      <p v-else-if="loadError" class="load-error">⚠️ {{ loadError }}</p>
-      <div v-else-if="cityDetail" class="detail-card">
-        <p>📍 지정 지역: {{ cityDetail.region }}</p>
-        <p>실시간 기온: {{ displayTemp }}{{ configStore.unitSymbol }}</p>
-        <p>기상 현황: {{ cityDetail.status }}</p>
-        <p>대기 습도: {{ cityDetail.humidity }}%</p>
-        <p>
-          현재 풍속: {{ displayWindSpeed }}{{ configStore.windUnitLabel }}
-          <button type="button" class="wind-unit-btn" @click="configStore.toggleWindUnit">
-            단위변경
-          </button>
-        </p>
-      </div>
+      <el-card v-loading="isLoading" class="detail-card" shadow="never">
+        <template #header>📍 지역별 상세 기상 관측 정보</template>
+
+        <el-alert v-if="loadError" type="error" :closable="false" show-icon>{{ loadError }}</el-alert>
+        <template v-else-if="cityDetail">
+          <p>📍 지정 지역: {{ cityDetail.region }}</p>
+          <p>실시간 기온: {{ displayTemp }}{{ configStore.unitSymbol }}</p>
+          <p>기상 현황: <el-tag type="info">{{ cityDetail.status }}</el-tag></p>
+          <p>대기 습도: {{ cityDetail.humidity }}%</p>
+          <p>
+            현재 풍속: {{ displayWindSpeed }}{{ configStore.windUnitLabel }}
+            <el-button size="small" text bg @click="configStore.toggleWindUnit">단위변경</el-button>
+          </p>
+        </template>
+      </el-card>
 
       <!-- 요구사항 2: 5 Day/3 Hour Forecast API로 가져온 다음 예보 -->
-      <div v-if="forecast.length > 0" class="forecast-strip">
-        <h4>🕐 다음 예보 (3시간 간격)</h4>
+      <el-card v-if="forecast.length > 0" class="forecast-strip" shadow="never">
+        <template #header>🕐 다음 예보 (3시간 간격)</template>
         <div class="forecast-list">
           <div v-for="slot in forecast" :key="slot.time" class="forecast-item">
             <p class="forecast-time">{{ slot.time }}</p>
             <p class="forecast-temp">{{ slot.temp }}°C</p>
-            <p class="forecast-status">{{ slot.status }}</p>
+            <el-tag size="small">{{ slot.status }}</el-tag>
           </div>
         </div>
-      </div>
+      </el-card>
     </template>
 
-    <RouterLink to="/" class="back-link">← 메인 대시보드로 돌아가기</RouterLink>
+    <RouterLink to="/" custom v-slot="{ navigate }">
+      <el-button class="back-link" type="primary" text @click="navigate">← 메인 대시보드로 돌아가기</el-button>
+    </RouterLink>
   </section>
 </template>
 
@@ -117,9 +120,6 @@ const displayWindSpeed = computed(() => {
 }
 
 .detail-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -127,36 +127,8 @@ const displayWindSpeed = computed(() => {
   margin: 0.4rem 0;
 }
 
-.wind-unit-btn {
-  margin-left: 0.4rem;
-  padding: 0.15rem 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 999px;
-  background: #f7f7f7;
-  font-size: 0.75rem;
-  cursor: pointer;
-}
-
-.no-result {
-  color: #888;
-  text-align: center;
-  padding: 1rem 0;
-}
-
-.load-error {
-  color: #b33;
-  background: #fdecea;
-  border-radius: 6px;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.85rem;
-}
-
 .forecast-strip {
-  margin-top: 0.5rem;
-}
-
-.forecast-strip h4 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .forecast-list {
@@ -186,7 +158,6 @@ const displayWindSpeed = computed(() => {
 
 .back-link {
   display: block;
-  text-align: center;
-  margin-top: 1rem;
+  margin: 1rem auto 0;
 }
 </style>

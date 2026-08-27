@@ -4,6 +4,9 @@
     1. 대시보드 상단에 배치되어 단위 설정을 변경하는 UI 버튼과 영역
     2. Navigation Bar 옆에 배치 (App.vue에서 사용)
   -> configStore(Pinia)의 unit/unitSymbol/toggleUnit을 그대로 연결만 합니다.
+
+  Hands on - Weather UI Library
+  버튼 클릭 방식 대신 Element Plus의 <el-switch>로 ON/OFF 토글 표현.
 -->
 <script setup>
 import { useConfigStore } from '../../stores/configStore.js'
@@ -16,7 +19,13 @@ const configStore = useConfigStore()
     <span class="unit-label">
       날씨단위: {{ configStore.unit === 'fahrenheit' ? '화씨' : '섭씨' }}({{ configStore.unitSymbol }})
     </span>
-    <button type="button" @click="configStore.toggleUnit">단위변경</button>
+    <el-switch
+      :model-value="configStore.unit === 'fahrenheit'"
+      inline-prompt
+      active-text="°F"
+      inactive-text="°C"
+      @change="configStore.toggleUnit"
+    />
   </div>
 </template>
 
@@ -31,15 +40,5 @@ const configStore = useConfigStore()
 .unit-label {
   color: #666;
   white-space: nowrap;
-}
-
-.unit-toggler button {
-  padding: 0.35rem 0.8rem;
-  border: none;
-  border-radius: 999px;
-  background: #e6483c;
-  color: #fff;
-  font-size: 0.8rem;
-  cursor: pointer;
 }
 </style>
